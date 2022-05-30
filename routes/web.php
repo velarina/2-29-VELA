@@ -38,16 +38,17 @@ Route::get('/galery', function () {
 Route::resource('/contacts', ContactController::class);
 
 
-
+Route::get('/contacs/create', [ContactController::class, 'create'])->name('contacts.create');
+Route::post('/contacs/store', [ContactController::class, 'store'])->name('contacts.store');
 
 Auth::routes();
 
 Route::group(['middleware'=>['auth']], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/contacs/index', [ContactController::class, 'index'])->name('contacts.index');
+    Route::get('/contacs/{id}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+    Route::post('/contacs/{id}/update', [ContactController::class, 'update'])->name('contacts.update');
+    Route::get('/contacs/{id}/destroy', [ContactController::class, 'destroy'])->name('contacts.destroy');
+
 });
 
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
